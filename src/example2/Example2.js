@@ -39,6 +39,34 @@ class CustomMap extends Component {
             icon: require('../assets/marker.png')
         });
     };
+    createLine = () => {
+        let {google} = this.props;
+        new google.maps.Polyline({
+            path: [{
+                lat: 59.934280,
+                lng: 30.335099
+            }, {
+                lat: 59.95,
+                lng: 30.321
+            }, {
+                lat: 59.935,
+                lng: 30.337
+            }],
+            map: this.state.map,
+            strokeColor: 'red',
+            strokeWeight: 8,
+            draggable: true,
+            editable: true,
+            icons: [{
+                repeat: '70px',
+                icon: {
+                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    scale: 6,
+                    strokeColor: 'black'
+                }
+            }]
+        })
+    };
 
     createMap() {
         let {google} = this.props;
@@ -77,6 +105,11 @@ class CustomMap extends Component {
                 <FlatButton
                     label="create marker"
                     onClick={this.createMarker}
+                    className='zoomButton'
+                />
+                <FlatButton
+                    label="create line"
+                    onClick={this.createLine}
                     className='zoomButton'
                 />
                 <div
