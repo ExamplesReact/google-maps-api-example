@@ -7,18 +7,35 @@ import Example1 from "../example1/Example1";
 import Example2 from "../example2/Example2";
 
 class ComponentWithMap extends Component {
+    renderExample1() {
+        if (this.props.google) {
+            return (
+                <div className='mapContainer'>
+                    <Example1 google={this.props.google}/>
+                </div>
+            );
+        }
+        return null;
+    }
+
+    renderExample2() {
+        if (this.props.google) {
+            return (
+                <Example2 google={this.props.google}/>
+            );
+        }
+        return null;
+    }
 
     render() {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
                 <Tabs>
                     <Tab label="Example with built-in google-maps-react features">
-                        <div style={{height:'95vh'}}>
-                            {this.props.google && <Example1 google={this.props.google}/>}
-                        </div>
+                        {this.renderExample1()}
                     </Tab>
                     <Tab label="Example creating custom map">
-                        <Example2/>
+                        {this.renderExample2()}
                     </Tab>
                 </Tabs>
             </MuiThemeProvider>

@@ -4,7 +4,11 @@ import ComponentWithMap from "../main/ComponentWithMap";
 
 class GoogleObjectProvider extends Component {
     render() {
-        return <ComponentWithMap google={this.props.google}/>;
+        return (
+            <ComponentWithMap
+                google={this.props.google}
+            />
+        );
     }
 }
 
