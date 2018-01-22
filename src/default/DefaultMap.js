@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Map, Marker} from "google-maps-react";
 
-class Example1 extends Component {
+class DefaultMap extends Component {
     render() {
         return (
             <Map google={this.props.google}>
@@ -11,4 +11,4 @@ class Example1 extends Component {
     }
 }
 
-export default Example1;
+export default DefaultMap;

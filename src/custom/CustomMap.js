@@ -28,7 +28,7 @@ class CustomMap extends Component {
 
     createMarker = () => {
         let {google} = this.props;
-        new google.maps.Marker({
+        let marker = new google.maps.Marker({
             position: {
                 lat: 59.934280,
                 lng: 30.335099
@@ -37,8 +37,42 @@ class CustomMap extends Component {
             draggable: true,
             clickable: true,
             icon: require('../assets/marker.png')
+
+        });
+        let infowindow = new google.maps.InfoWindow({
+            content: '<strong>Left click</strong> - to change marker ' +
+            '<br>' +
+            '<strong>Ctrl+click</strong> - to delete ' +
+            '<br>' +
+            '<strong>Right click</strong> - to remove click event listeners'
+        });
+
+        marker.addListener('mouseover', () => {
+            infowindow.open(this.state.map, marker);
+        });
+
+        marker.addListener('mouseout', () => {
+            infowindow.close();
+        });
+
+        let clickListener = marker.addListener('click', (event) => {
+            if (event.ta.ctrlKey) {
+                marker.setMap(null);
+                return;
+            }
+            if (marker.getIcon() === require('../assets/marker.png')) {
+                marker.setIcon(require('../assets/marker1.png'));
+                return;
+            }
+            marker.setIcon(require('../assets/marker.png'));
+
+        });
+
+        marker.addListener('rightclick', () => {
+            google.maps.event.removeListener(clickListener);
         });
     };
+
     createLine = () => {
         let {google} = this.props;
         new google.maps.Polyline({
